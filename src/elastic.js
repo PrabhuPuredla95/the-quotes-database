@@ -1,10 +1,10 @@
 const { Client } = require("@elastic/elasticsearch");
-                   require("dotenv").config();
+require("dotenv").config();
 
 const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
-const esclient   = new Client({ node: elasticUrl });
-const index      = "quotes";
-const type       = "quotes";
+const esclient = new Client({ node: elasticUrl });
+const index = "cars";
+const type = "cars";
 
 /**
  * @function createIndex
@@ -12,17 +12,23 @@ const type       = "quotes";
  * @description Creates an index in ElasticSearch.
  */
 
-async function createIndex(index) {
+async function createIndex1(index) {
   try {
-
     await esclient.indices.create({ index });
     console.log(`Created index ${index}`);
-
   } catch (err) {
-
     console.error(`An error occurred while creating the index ${index}:`);
     console.error(err);
-
+  }
+}
+// createIndex1(index);
+async function createIndex(index) {
+  try {
+    await esclient.indices.create({ index });
+    console.log(`Created index ${index}`);
+  } catch (err) {
+    console.error(`An error occurred while creating the index ${index}:`);
+    console.error(err);
   }
 }
 
@@ -32,28 +38,96 @@ async function createIndex(index) {
  * @description Sets the quotes mapping to the database.
  */
 
-async function setQuotesMapping () {
+async function setQuotesMapping1() {
+  try {
+    const schema = {
+      id: {
+        type: "text",
+      },
+      update: {
+        type: "text",
+      },
+      brand: {
+        type: "text",
+      },
+      model: {
+        type: "text",
+      },
+      generation: {
+        type: "text",
+      },
+      engine: {
+        type: "text",
+      },
+      power: {
+        type: "text",
+      },
+      powerHp: {
+        type: "text",
+      },
+      yearstart: {
+        type: "text",
+      },
+      yearstop: {
+        type: "text",
+      },
+      coupe: {
+        type: "text",
+      },
+      fuel: {
+        type: "text",
+      },
+      prototype: {
+        type: "text",
+      },
+      name: {
+        type: "text",
+      },
+      modelYear: {
+        type: "text",
+      },
+      content: {
+        type: "text",
+      },
+    };
+
+    await esclient.indices.putMapping({
+      index,
+      type,
+      include_type_name: true,
+      body: {
+        properties: schema,
+      },
+    });
+
+    console.log("Quotes mapping created successfully");
+  } catch (err) {
+    console.error("An error occurred while setting the quotes mapping:");
+    console.error(err);
+  }
+}
+// setQuotesMapping1();
+async function setQuotesMapping() {
   try {
     const schema = {
       quote: {
-        type: "text" 
+        type: "text",
       },
       author: {
-        type: "text"
-      }
+        type: "text",
+      },
     };
-  
-    await esclient.indices.putMapping({ 
-      index, 
+
+    await esclient.indices.putMapping({
+      index,
       type,
       include_type_name: true,
-      body: { 
-        properties: schema 
-      } 
-    })
-    
+      body: {
+        properties: schema,
+      },
+    });
+
     console.log("Quotes mapping created successfully");
-  
   } catch (err) {
     console.error("An error occurred while setting the quotes mapping:");
     console.error(err);
@@ -68,25 +142,20 @@ async function setQuotesMapping () {
 
 function checkConnection() {
   return new Promise(async (resolve) => {
-
     console.log("Checking connection to ElasticSearch...");
     let isConnected = false;
 
     while (!isConnected) {
       try {
-
         await esclient.cluster.health({});
         console.log("Successfully connected to ElasticSearch");
         isConnected = true;
 
-      // eslint-disable-next-line no-empty
-      } catch (_) {
-
-      }
+        // eslint-disable-next-line no-empty
+      } catch (_) {}
     }
 
     resolve(true);
-
   });
 }
 
@@ -96,5 +165,5 @@ module.exports = {
   checkConnection,
   createIndex,
   index,
-  type
+  type,
 };
