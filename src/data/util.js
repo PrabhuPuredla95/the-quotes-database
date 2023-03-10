@@ -55,17 +55,16 @@ const handleEngine = (val) => {
   }
 };
 const handleTitle = (val) => {
-  if (val && val.includes("-")) {
+  if (val && val.includes("-"))
     return `${val} ${val.replace("-", "")} ${val.replace("-", " ")}`;
-  } else {
-    return val;
-  }
+  else if (val && val.toLowerCase().includes("volkswagen")) return `${val} vw`;
+  else return val;
 };
 const getYears = (start, stop) => {
   start = parseInt(start);
   stop = parseInt(stop);
   var output = "";
-  while (start < stop) {
+  while (start <= stop) {
     output += `${start} `;
     start += 1;
   }
