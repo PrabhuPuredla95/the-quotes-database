@@ -25,7 +25,7 @@ async function getQuotes(req) {
   const results = hits.total.value;
   const values = hits.hits.map((hit) => {
     return {
-      car: hit._source.content,
+      car: `${hit._source.brand} ${hit._source.model} ${hit._source.generation} ${hit._source.engine} ${hit._source.power} ${hit._source.coupe} ${hit._source.fuel} ${hit._source.productionYears} `,
     };
   });
 
