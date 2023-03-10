@@ -3,7 +3,7 @@ const { esclient, index, type } = require("../../elastic");
 async function getQuotes(req) {
   const query = {
     query: {
-      match: {
+      match_bool_prefix: {
         content: {
           query: req.text,
           operator: "and",
