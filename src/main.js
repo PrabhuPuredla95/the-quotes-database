@@ -10,14 +10,15 @@ require("dotenv").config();
     const elasticIndex = await elastic.esclient.indices.exists({
       index: elastic.index,
     });
+    console.log("starting server");
 
     if (!elasticIndex.body) {
       // await elastic.createIndex(elastic.index);
-      console.log("creating mapping");
       // await elastic.setQuotesMapping();
       // await data.populateDatabase();
     }
 
     server.start();
+    console.log("started server");
   }
 })();
