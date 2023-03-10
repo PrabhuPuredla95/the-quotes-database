@@ -31,14 +31,15 @@ async function populateDatabase1() {
       for (const generation of model.generations.generation) {
         for (const modification of generation.modifications.modification) {
           docs.push(esAction);
+          const years = getYears(modification.yearstart, modification.yearstop);
           const x = {
             ...modification,
-            ...generation,
+            productionYears: years,
             content: `${handleTitle(modification.brand)} ${handleTitle(
               modification.generation
             )} ${handleEngine(modification.engine)} ${modification.fuel} ${
               modification.coupe
-            } ${getYears(modification.yearstart, modification.yearstop)}`,
+            } ${years}`,
           };
 
           docs.push(x);
