@@ -1,10 +1,13 @@
 const { Client } = require("@elastic/elasticsearch");
 require("dotenv").config();
 
-const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
-const esclient = new Client({ node: elasticUrl });
-const index = "cars";
-const type = "cars";
+const elasticUrl = process.env.ELASTIC_URL || "http://95.179.199.14:9200";
+const esclient = new Client({
+  node: elasticUrl,
+  auth: { username: "elastic", password: "ksk3WMVlUlKXfm8pKXNP" },
+});
+const index = "cars_testing_1";
+const type = "cars_testing_1";
 
 /**
  * @function createIndex
