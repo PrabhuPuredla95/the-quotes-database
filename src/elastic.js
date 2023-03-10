@@ -42,49 +42,40 @@ async function setQuotesMapping1() {
   try {
     const schema = {
       id: {
-        type: "text",
-      },
-      update: {
-        type: "text",
+        type: "integer",
       },
       brand: {
-        type: "text",
+        type: "keyword",
       },
       model: {
-        type: "text",
+        type: "keyword",
       },
       generation: {
-        type: "text",
+        type: "keyword",
       },
       engine: {
-        type: "text",
+        type: "keyword",
       },
       power: {
-        type: "text",
+        type: "keyword",
       },
       powerHp: {
-        type: "text",
+        type: "keyword",
       },
       yearstart: {
-        type: "text",
+        type: "keyword",
       },
       yearstop: {
-        type: "text",
+        type: "keyword",
       },
       coupe: {
-        type: "text",
+        type: "keyword",
       },
       fuel: {
-        type: "text",
+        type: "keyword",
       },
-      prototype: {
-        type: "text",
-      },
-      name: {
-        type: "text",
-      },
-      modelYear: {
-        type: "text",
+      productionYears: {
+        type: "keyword",
       },
       content: {
         type: "text",
