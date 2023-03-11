@@ -10,6 +10,15 @@ const model = require("../models");
 async function getQuotes(req, res) {
   const query = req.query;
 
+  if (req.headers.authorization !== "yEXkX8qTge13lq29nzaIjTrFNBlflFKy") {
+    res.status(401).json({
+      error: true,
+      data: "Unauthorized",
+    });
+
+    return;
+  }
+
   if (!query.keyword) {
     res.status(422).json({
       error: true,
