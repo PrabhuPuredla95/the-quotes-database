@@ -5,7 +5,7 @@ async function getQuotes(req) {
     query: {
       match_bool_prefix: {
         content: {
-          query: req.text,
+          query: req.keyword,
           operator: "and",
         },
       },
@@ -15,8 +15,8 @@ async function getQuotes(req) {
   const {
     body: { hits },
   } = await esclient.search({
-    from: req.page || 0,
-    size: req.limit || 100,
+    from: (req.page || 1) - 1,
+    size: req.limit || 10,
     index: index,
     type: type,
     body: query,
